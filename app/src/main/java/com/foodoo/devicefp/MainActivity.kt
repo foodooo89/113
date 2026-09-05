@@ -120,7 +120,7 @@ class MainActivity : AppCompatActivity() {
         // ===== IDENTIFIERS =====
         out.append(sb("IDENTIFIERS") {
             appendLine("ANDROID_ID      : ${Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID)}")
-            appendLine("IMEI/DeviceId   : ${getDeviceId()}")
+            appendLine("IMEI/DeviceId   : ${readDeviceIdSafe()}")
         })
 
         // ===== TELEPHONY / SIM =====
@@ -327,7 +327,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     @Suppress("DEPRECATION", "MissingPermission")
-    private fun getDeviceId(): String {
+    private fun readDeviceIdSafe(): String {
         return try {
             if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.READ_PHONE_STATE)
                 == PackageManager.PERMISSION_GRANTED
